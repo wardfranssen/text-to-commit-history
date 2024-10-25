@@ -72,13 +72,17 @@ if __name__ == "__main__":
 
     text = input("Text: ")
     text_size = input("What size should the text be (big/small): ")
+
+    if text_size != "big" and text_size != "small":
+        print("Please enter either big or small.")
+        exit(0)
     year = int(input("What year should your commits be in: "))
 
     # Get week day of first day of given year and turn it into index
     first_day_of_year = days_of_the_week.index(datetime(year, 1, 1).strftime("%A"))
 
     dates = []
-    day = 0
+    day = 8
 
     for letter in text.strip().upper():
         # +14 is 3 weeks because it will also add 1 week after each letter (the letter before the space)
@@ -94,4 +98,3 @@ if __name__ == "__main__":
     for row in dates:
         for date in row:
             git_commit_push(repo_dir, commit_message, date=date)
-            time.sleep(1)
