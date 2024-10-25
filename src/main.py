@@ -72,7 +72,7 @@ def git_commit_push(repo_path, message, branch="main"):
         subprocess.run(["git", "add", "."], check=True)
 
         # Commit changes with the provided message
-        subprocess.run(["git", "commit", "-m", message], check=True)
+        subprocess.run(["git", "commit", "-m", message, "--allow-empty"], check=True)
 
         # Push the changes to the specified branch on the remote repository
         subprocess.run(["git", "push", "origin", branch], check=True)
