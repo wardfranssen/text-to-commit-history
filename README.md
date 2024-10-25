@@ -14,7 +14,7 @@ This project allows you to create a series of git commits that form a specified 
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/wardfranssen/gitCommitHistory.git
+    git clone https://github.com/wardfranssen/text-to-commit-history.git
     cd gitCommitHistory
     ```
 
@@ -33,7 +33,7 @@ This project allows you to create a series of git commits that form a specified 
     ```
 
 2. Follow the prompts to input:
-    - Directory of the repository you just made.
+    - Directory of the repository you just made
     - Commit message
     - Text to be displayed
     - Text size (big/small)
