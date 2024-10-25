@@ -1,3 +1,5 @@
+![Example image](https://github.com/wardfranssen/gitCommitHistory/blob/main/static/images/Example.png?raw=true)
+
 # gitCommitHistory
 
 This project allows you to create a series of git commits that form a specified text pattern over a year. The text pattern is defined using a JSON file that maps letters to a grid of dates.
