@@ -2,11 +2,10 @@ from datetime import datetime
 import json
 import os
 import subprocess
-import time
 
 static_folder = "..\\static"
 
-with open(f"{static_folder}\\letters.json", "r") as file:
+with open(f"{static_folder}\\characters.json", "r") as file:
     letters_json = json.loads(file.read())
 
 days_of_the_week = [
@@ -17,6 +16,37 @@ days_of_the_week = [
     "Thursday",
     "Friday",
     "Saturday",
+]
+
+punctuation = [
+    "!",
+    "?",
+    "[",
+    "]",
+    "(",
+    ")",
+    "{",
+    "}",
+    ".",
+    ",",
+    "\"",
+    "'",
+    "-",
+    "_",
+    ";",
+    ":",
+    "/",
+    "\\",
+    "*",
+    "+",
+    "=",
+    "^",
+    "%",
+    "<",
+    ">",
+    "~",
+    "#",
+    "|"
 ]
 
 
@@ -55,7 +85,7 @@ def git_commit_push(repo_path: str, message: str, date="", branch="main") -> Non
 
         if date:
             commit_command.append(f"--date={date}")
-        # Commit changes with the provided message
+        # Commit changes
         subprocess.run(commit_command, check=True)
 
         # Push the changes to the specified branch on the remote repository
@@ -64,6 +94,7 @@ def git_commit_push(repo_path: str, message: str, date="", branch="main") -> Non
         print("Changes committed and pushed successfully!")
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
+        exit(0)
 
 
 if __name__ == "__main__":
@@ -82,7 +113,8 @@ if __name__ == "__main__":
     first_day_of_year = days_of_the_week.index(datetime(year, 1, 1).strftime("%A"))
 
     dates = []
-    day = 8
+    # Might have to change this to 7/8 IDK why though
+    day = 7
     icon_name = ""
 
     n = len(text)
@@ -95,7 +127,7 @@ if __name__ == "__main__":
         if text[i] == " ":
             day += 14
             continue
-        elif text[i].startswith(":"):
+        elif text[i] == ":":
             icon_name = ""
 
             for letter in text.strip():
@@ -110,6 +142,9 @@ if __name__ == "__main__":
 
             # Need to replace it with another char (can't be :) cause otherwise it will skip a letter
             text = text.replace(icon_name, "_")
+
+        elif text[i] in punctuation:
+            dates.append(letter_to_dates(letters_json["punctuation"][text[i]], year))
         else:
             dates.append(letter_to_dates(letters_json["letters"][text_size][text[i].upper()], year))
 
