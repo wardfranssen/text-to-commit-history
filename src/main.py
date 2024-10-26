@@ -83,16 +83,37 @@ if __name__ == "__main__":
 
     dates = []
     day = 8
+    icon_name = ""
 
-    for letter in text.strip().upper():
-        # +14 is 3 weeks because it will also add 1 week after each letter (the letter before the space)
-        if letter == " ":
+    n = len(text)
+
+    for i in range(n):
+        if i >= len(text):
+            break
+
+        # +14 is 3 weeks because it will also add 1 week after each text[i] (the text[i] before the space)
+        if text[i] == " ":
             day += 14
             continue
-        else:
-            dates.append(letter_to_dates(letters_json["letters"][text_size][letter], year))
+        elif text[i].startswith(":"):
+            icon_name = ""
 
-        # Add some space between each letter
+            for letter in text.strip():
+                if ":" in icon_name and letter == ":":
+                    icon_name += letter
+                    break
+
+                if letter == ":" or icon_name:
+                    icon_name += letter
+
+            dates.append(letter_to_dates(letters_json["icons"][icon_name], year))
+
+            # Need to replace it with another char (can't be :) cause otherwise it will skip a letter
+            text = text.replace(icon_name, "_")
+        else:
+            dates.append(letter_to_dates(letters_json["letters"][text_size][text[i].upper()], year))
+
+        # Add some space between each text[i]
         day += 7
 
     for row in dates:
