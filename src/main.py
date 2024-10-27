@@ -50,7 +50,7 @@ punctuation = [
 ]
 
 
-def letter_to_dates(letter: str, year: int) -> list:
+def char_to_dates(letter: str, year: int) -> list:
     global day
 
     dates = []
@@ -127,28 +127,30 @@ if __name__ == "__main__":
         if text[i] == " ":
             day += 14
             continue
-        elif text[i] == ":":
+        elif text[i] == "`":
             icon_name = ""
 
-            for letter in text.strip():
-                if ":" in icon_name and letter == ":":
-                    icon_name += letter
+            for char in text:
+                if "`" in icon_name and char == "`":
+                    icon_name += char
                     break
 
-                if letter == ":" or icon_name:
-                    icon_name += letter
+                if char == "`" or icon_name:
+                    icon_name += char
 
-            dates.append(letter_to_dates(letters_json["icons"][icon_name], year))
+            dates.append(char_to_dates(letters_json["icons"][icon_name], year))
 
-            # Need to replace it with another char (can't be :) cause otherwise it will skip a letter
+            # Need to replace it with another char (can't be `) cause otherwise it will skip a letter
             text = text.replace(icon_name, "_")
 
         elif text[i] in punctuation:
-            dates.append(letter_to_dates(letters_json["punctuation"][text[i]], year))
+            dates.append(char_to_dates(letters_json["punctuation"][text[i]], year))
+        elif text[i].isnumeric():
+            dates.append(char_to_dates(letters_json["numbers"][text[i]], year))
         else:
-            dates.append(letter_to_dates(letters_json["letters"][text_size][text[i].upper()], year))
+            dates.append(char_to_dates(letters_json["letters"][text_size][text[i].upper()], year))
 
-        # Add some space between each text[i]
+        # Add some space between each character
         day += 7
 
     for row in dates:
