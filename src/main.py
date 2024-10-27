@@ -6,7 +6,7 @@ import subprocess
 static_folder = "..\\static"
 
 with open(f"{static_folder}\\characters.json", "r") as file:
-    letters_json = json.loads(file.read())
+    chars_json = json.loads(file.read())
 
 days_of_the_week = [
     "Sunday",
@@ -16,37 +16,6 @@ days_of_the_week = [
     "Thursday",
     "Friday",
     "Saturday",
-]
-
-punctuation = [
-    "!",
-    "?",
-    "[",
-    "]",
-    "(",
-    ")",
-    "{",
-    "}",
-    ".",
-    ",",
-    "\"",
-    "'",
-    "-",
-    "_",
-    ";",
-    ":",
-    "/",
-    "\\",
-    "*",
-    "+",
-    "=",
-    "^",
-    "%",
-    "<",
-    ">",
-    "~",
-    "#",
-    "|"
 ]
 
 
@@ -94,6 +63,7 @@ def git_commit_push(repo_path: str, message: str, date="", branch="main") -> Non
         print("Changes committed and pushed successfully!")
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
+        print("It is possible that there is no repo at given dir.")
         exit(0)
 
 
@@ -138,17 +108,17 @@ if __name__ == "__main__":
                 if char == "`" or icon_name:
                     icon_name += char
 
-            dates.append(char_to_dates(letters_json["icons"][icon_name], year))
+            dates.append(char_to_dates(chars_json["icons"][icon_name], year))
 
             # Need to replace it with another char (can't be `) cause otherwise it will skip a letter
             text = text.replace(icon_name, "_")
 
-        elif text[i] in punctuation:
-            dates.append(char_to_dates(letters_json["punctuation"][text[i]], year))
+        elif text[i] in chars_json["punctuation"].keys():
+            dates.append(char_to_dates(chars_json["punctuation"][text[i]], year))
         elif text[i].isnumeric():
-            dates.append(char_to_dates(letters_json["numbers"][text[i]], year))
+            dates.append(char_to_dates(chars_json["numbers"][text[i]], year))
         else:
-            dates.append(char_to_dates(letters_json["letters"][text_size][text[i].upper()], year))
+            dates.append(char_to_dates(chars_json["letters"][text_size][text[i].upper()], year))
 
         # Add some space between each character
         day += 7

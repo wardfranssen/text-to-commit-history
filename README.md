@@ -3,7 +3,7 @@
 # text-to-commit-history
 
 
-This project allows you to create a series of git commits that form a specified text pattern over a year. The text pattern is defined using a JSON file that maps letters to a grid of dates.
+This project allows you to create a series of git commits that form a specified text pattern over a year. The text pattern is defined using a JSON file that maps letters, numbers, punctuatiion and icons to a grid of dates. This JSON file can easily be edited to costumize everything.
 
 ## Prerequisites
 
@@ -17,11 +17,6 @@ This project allows you to create a series of git commits that form a specified 
     ```sh
     git clone https://github.com/wardfranssen/text-to-commit-history.git
     cd gitCommitHistory
-    ```
-
-2. Install the required packages:
-    ```sh
-    pip install -r requirements.txt
     ```
 
 ## Usage
@@ -53,5 +48,5 @@ What year should your commits be in: 2000
 ## Files
 
 - `src/main.py`: Main script to run the project.
-- `static/letters.json`: JSON file containing the letter mappings, you can fully customize the letters in this file, but make sure that each letter has 7 columns.
+- `static/characters.json`: JSON file containing the characters mappings, you can fully customize the characters in this file, but make sure that each letter has 7 columns.
 - `static/...vincent-van-git.config.json`: These can be imported to https://vincent-van-git.netlify.app/ to visualize the letters in a commit history.
