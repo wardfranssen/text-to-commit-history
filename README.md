@@ -16,7 +16,7 @@ This project allows you to create a series of git commits that form a specified 
 1. Clone the repository:
     ```sh
     git clone https://github.com/wardfranssen/text-to-commit-history.git
-    cd gitCommitHistory
+    cd text-to-commit-history
     ```
 
 ## Usage
